@@ -21,7 +21,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /auth.json
-/.kamal/secrets
+ansible/.vault-pass
+/ansible/vault/
 /.fleet
 /.idea
 /.nova

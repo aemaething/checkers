@@ -1,0 +1,22 @@
+---
+app_image: ghcr.io/aemaething/checker:latest
+app_dir: /opt/checkers
+domain: checkers.robotnik.net
+
+# Non-secret application config
+app_name: Checkers
+app_env: production
+app_debug: "false"
+app_url: "https://checkers.robotnik.net"
+
+db_connection: pgsql
+db_host: postgres
+db_port: "5432"
+db_database: checkers
+db_username: checkers
+
+reverb_app_id: "1"
+reverb_app_key: checkers-app
+reverb_host: checkers.robotnik.net
+reverb_scheme: https
+reverb_port: "443"

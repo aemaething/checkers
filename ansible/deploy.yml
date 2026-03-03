@@ -1,0 +1,6 @@
+---
+- name: Deploy Checkers
+  hosts: checkers
+  become: true
+  roles:
+    - app

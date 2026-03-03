@@ -1,0 +1,79 @@
+---
+- name: Install required packages
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - python3-pip
+    state: present
+    update_cache: true
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Install Docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Ensure Docker is running
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create app directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: "0750"
+
+- name: Template .env
+  template:
+    src: .env.j2
+    dest: "{{ app_dir }}/.env"
+    mode: "0600"
+
+- name: Copy Caddyfile
+  template:
+    src: Caddyfile.j2
+    dest: "{{ app_dir }}/Caddyfile"
+    mode: "0644"
+
+- name: Copy docker-compose.yml
+  copy:
+    src: "{{ playbook_dir }}/../docker-compose.yml"
+    dest: "{{ app_dir }}/docker-compose.yml"
+    mode: "0644"
+
+- name: Log in to GitHub Container Registry
+  docker_login:
+    registry: ghcr.io
+    username: aemaething
+    password: "{{ ghcr_token }}"
+
+- name: Pull latest image
+  docker_image:
+    name: "{{ app_image }}"
+    source: pull
+    force_source: true
+
+- name: Start services
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    pull: always
+    remove_orphans: true
+    state: present
