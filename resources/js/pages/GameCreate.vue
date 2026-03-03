@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { store as storeGame } from '@/actions/App/Http/Controllers/GameController';
 import { useForm } from '@inertiajs/vue3';
+import { store as storeGame } from '@/actions/App/Http/Controllers/GameController';
 
 const form = useForm({});
 

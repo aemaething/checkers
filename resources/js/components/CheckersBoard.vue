@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import CheckersPiece from '@/components/CheckersPiece.vue';
 import type { BoardState } from '@/types/game';
-import { computed } from 'vue';
 
 const props = defineProps<{
     boardState: BoardState;

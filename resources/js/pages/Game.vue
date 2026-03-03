@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { usePoll } from '@inertiajs/vue3';
+import { useEchoPublic } from '@laravel/echo-vue';
+import { ref, watch } from 'vue';
 import CheckersBoard from '@/components/CheckersBoard.vue';
 import GameStatus from '@/components/GameStatus.vue';
 import { useCheckers } from '@/composables/useCheckers';
 import type { Game, MoveMadeEvent } from '@/types/game';
-import { usePoll } from '@inertiajs/vue3';
-import { useEchoPublic } from '@laravel/echo-vue';
-import { ref, watch } from 'vue';
 
 const props = defineProps<{
     game: Game;

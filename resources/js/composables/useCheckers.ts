@@ -1,7 +1,7 @@
-import { store as storeMoveRoute } from '@/actions/App/Http/Controllers/MoveController';
-import type { BoardState, Game, MoveMadeEvent, ValidMove } from '@/types/game';
 import { router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { store as storeMoveRoute } from '@/actions/App/Http/Controllers/MoveController';
+import type { BoardState, Game, MoveMadeEvent, ValidMove } from '@/types/game';
 
 type Cell = { row: number; col: number };
 
@@ -87,7 +87,7 @@ export function useCheckers(game: { value: Game }) {
 
             if (completedChains.length === 1) {
                 // Exactly one chain completed → execute it.
-                void executeMove(completedChains[0].to_row, completedChains[0].to_col, completedChains[0]);
+                void executeMove(completedChains[0].to_row, completedChains[0].to_col);
                 return;
             }
 
@@ -95,7 +95,7 @@ export function useCheckers(game: { value: Game }) {
                 // Multiple chains reach the same destination with the same number of steps:
                 // pick the one with the most captures (should be the same by maximization, but be safe).
                 const best = completedChains.reduce((a, b) => (a.captures.length >= b.captures.length ? a : b));
-                void executeMove(best.to_row, best.to_col, best);
+                void executeMove(best.to_row, best.to_col);
                 return;
             }
 
@@ -125,7 +125,7 @@ export function useCheckers(game: { value: Game }) {
                 if (movesForTarget.every((m) => m.path.length === 1)) {
                     // All matching moves are single-step — pick the one with most captures (or only one).
                     const best = movesForTarget.reduce((a, b) => (a.captures.length >= b.captures.length ? a : b));
-                    void executeMove(best.to_row, best.to_col, best);
+                    void executeMove(best.to_row, best.to_col);
                 } else {
                     // Multi-step chain — start chain navigation at step 1.
                     jumpChains.value = movesForTarget;
@@ -145,7 +145,7 @@ export function useCheckers(game: { value: Game }) {
         jumpPathLength.value = 0;
     }
 
-    async function executeMove(toRow: number, toCol: number, move: ValidMove): Promise<void> {
+    async function executeMove(toRow: number, toCol: number): Promise<void> {
         if (!selectedCell.value || isSubmitting.value) {
             return;
         }
