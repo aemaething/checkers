@@ -1,6 +1,6 @@
 ---
 - name: Deploy Checkers
-  hosts: checkers
+  hosts: all
   become: true
   roles:
     - app

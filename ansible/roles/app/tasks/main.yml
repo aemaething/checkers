@@ -60,20 +60,10 @@
     mode: "0644"
 
 - name: Log in to GitHub Container Registry
-  docker_login:
-    registry: ghcr.io
-    username: aemaething
-    password: "{{ ghcr_token }}"
-
-- name: Pull latest image
-  docker_image:
-    name: "{{ app_image }}"
-    source: pull
-    force_source: true
+  shell: echo "{{ ghcr_token }}" | docker login ghcr.io -u aemaething --password-stdin
+  no_log: true
 
 - name: Start services
-  community.docker.docker_compose_v2:
-    project_src: "{{ app_dir }}"
-    pull: always
-    remove_orphans: true
-    state: present
+  shell: docker compose pull && docker compose up -d --remove-orphans
+  args:
+    chdir: "{{ app_dir }}"
