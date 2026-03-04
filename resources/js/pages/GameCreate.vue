@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { store as storeGame } from '@/actions/App/Http/Controllers/GameController';
 
-const form = useForm({});
+type Mode = 'online' | 'local';
+
+const mode = ref<Mode>('online');
+const form = useForm({ is_local: false });
 
 function createGame(): void {
+    form.is_local = mode.value === 'local';
     form.post(storeGame().url);
 }
 </script>
@@ -27,6 +32,30 @@ function createGame(): void {
                 <p class="mt-2 text-zinc-500">Deutsches Damespiel · 8×8</p>
             </div>
 
+            <!-- Mode selector -->
+            <div class="grid grid-cols-2 gap-3">
+                <button
+                    class="rounded-xl border-2 px-4 py-3 text-sm font-semibold transition"
+                    :class="mode === 'online'
+                        ? 'border-zinc-800 bg-zinc-800 text-white'
+                        : 'border-zinc-300 bg-white text-zinc-600 hover:border-zinc-400'"
+                    @click="mode = 'online'"
+                >
+                    🌐 Online
+                    <p class="mt-1 text-xs font-normal opacity-70">Link teilen</p>
+                </button>
+                <button
+                    class="rounded-xl border-2 px-4 py-3 text-sm font-semibold transition"
+                    :class="mode === 'local'
+                        ? 'border-zinc-800 bg-zinc-800 text-white'
+                        : 'border-zinc-300 bg-white text-zinc-600 hover:border-zinc-400'"
+                    @click="mode = 'local'"
+                >
+                    🖥️ Lokal
+                    <p class="mt-1 text-xs font-normal opacity-70">Gleicher Browser</p>
+                </button>
+            </div>
+
             <button
                 :disabled="form.processing"
                 class="w-full rounded-xl bg-zinc-800 px-6 py-3 text-lg font-semibold text-white shadow transition hover:bg-zinc-700 disabled:opacity-50"
@@ -36,7 +65,12 @@ function createGame(): void {
             </button>
 
             <p class="text-xs text-zinc-400">
-                Nach dem Erstellen bekommst du einen Link, den du mit deinem Mitspieler teilen kannst.
+                <template v-if="mode === 'online'">
+                    Nach dem Erstellen bekommst du einen Link, den du mit deinem Mitspieler teilen kannst.
+                </template>
+                <template v-else>
+                    Beide Spieler spielen abwechselnd im gleichen Browser-Fenster.
+                </template>
             </p>
         </div>
     </div>

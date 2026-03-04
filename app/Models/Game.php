@@ -13,6 +13,7 @@ class Game extends Model
 
     protected $fillable = [
         'uuid',
+        'is_local',
         'player1_token',
         'player2_token',
         'board_state',
@@ -24,6 +25,7 @@ class Game extends Model
     protected function casts(): array
     {
         return [
+            'is_local' => 'boolean',
             'board_state' => 'array',
             'current_turn' => 'integer',
             'status' => GameStatus::class,

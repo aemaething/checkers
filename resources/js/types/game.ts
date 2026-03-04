@@ -11,6 +11,7 @@ export type GameStatus = 'waiting' | 'active' | 'finished';
 
 export type Game = {
     uuid: string;
+    is_local: boolean;
     status: GameStatus;
     current_turn: 1 | 2;
     winner: 1 | 2 | null;

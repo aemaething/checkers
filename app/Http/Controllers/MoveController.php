@@ -23,7 +23,8 @@ class MoveController extends Controller
             return response()->json(['message' => 'Game is not active.'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $playerNumber = $game->player1_token === $playerToken ? 1 : 2;
+        // In local mode the token always belongs to player 1, so we use current_turn instead.
+        $playerNumber = $game->is_local ? $game->current_turn : ($game->player1_token === $playerToken ? 1 : 2);
 
         if ($game->current_turn !== $playerNumber) {
             return response()->json(['message' => 'It is not your turn.'], Response::HTTP_UNPROCESSABLE_ENTITY);

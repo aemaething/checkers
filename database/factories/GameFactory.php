@@ -30,6 +30,11 @@ class GameFactory extends Factory
         return $this->state(['status' => GameStatus::Active]);
     }
 
+    public function local(): static
+    {
+        return $this->state(['is_local' => true, 'status' => GameStatus::Active]);
+    }
+
     public function finished(int $winner = 1): static
     {
         return $this->state(['status' => GameStatus::Finished, 'winner' => $winner]);

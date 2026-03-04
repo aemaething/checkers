@@ -16,9 +16,17 @@ const statusMessage = computed(() => {
     }
 
     if (props.game.status === 'finished') {
+        if (props.game.is_local) {
+            return `Spieler ${props.game.winner} hat gewonnen! 🎉`;
+        }
+
         return props.game.winner === props.game.player_number
             ? 'Gewonnen! 🎉'
             : 'Verloren.';
+    }
+
+    if (props.game.is_local) {
+        return `Spieler ${props.game.current_turn} ist dran`;
     }
 
     return props.game.current_turn === props.game.player_number
@@ -28,13 +36,17 @@ const statusMessage = computed(() => {
 
 const statusColor = computed(() => {
     if (props.game.status === 'finished') {
+        if (props.game.is_local) {
+            return 'text-green-600';
+        }
+
         return props.game.winner === props.game.player_number
             ? 'text-green-600'
             : 'text-red-600';
     }
 
     return props.game.current_turn === props.game.player_number
-        ? 'text-blue-600'
+        ? 'text-zinc-800'
         : 'text-slate-500';
 });
 
@@ -55,7 +67,7 @@ async function copyShareLink(): Promise<void> {
         <div class="flex items-center gap-2">
             <span
                 v-if="game.status === 'active' && game.current_turn === game.player_number"
-                class="h-3 w-3 animate-pulse rounded-full bg-blue-500"
+                class="h-3 w-3 animate-pulse rounded-full bg-zinc-700"
             />
             <span class="font-semibold" :class="statusColor">
                 {{ statusMessage }}
@@ -64,11 +76,16 @@ async function copyShareLink(): Promise<void> {
 
         <!-- Player info -->
         <div class="text-sm text-zinc-500">
-            Du spielst als
-            <span class="font-medium" :class="game.player_number === 1 ? 'text-zinc-900' : 'text-zinc-600'">
-                Spieler {{ game.player_number }}
-                {{ game.player_number === 1 ? '(Schwarz)' : '(Grau)' }}
-            </span>
+            <template v-if="game.is_local">
+                Lokal · Spieler {{ game.current_turn === 1 ? '1 (Schwarz)' : '2 (Weiß)' }} am Zug
+            </template>
+            <template v-else>
+                Du spielst als
+                <span class="font-medium" :class="game.player_number === 1 ? 'text-zinc-900' : 'text-zinc-600'">
+                    Spieler {{ game.player_number }}
+                    {{ game.player_number === 1 ? '(Schwarz)' : '(Weiß)' }}
+                </span>
+            </template>
         </div>
 
         <!-- Share link for player 1 while waiting -->
@@ -92,10 +109,15 @@ async function copyShareLink(): Promise<void> {
         <!-- Winner banner -->
         <div
             v-if="game.status === 'finished'"
-            class="rounded-lg p-4 text-center font-bold text-xl"
-            :class="game.winner === game.player_number ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+            class="rounded-lg p-4 text-center font-bold text-xl bg-green-100 text-green-800"
+            :class="{ 'bg-red-100 text-red-800': !game.is_local && game.winner !== game.player_number }"
         >
-            {{ game.winner === game.player_number ? 'Du hast gewonnen! 🎉' : `Spieler ${game.winner} hat gewonnen.` }}
+            <template v-if="game.is_local">
+                Spieler {{ game.winner }} hat gewonnen! 🎉
+            </template>
+            <template v-else>
+                {{ game.winner === game.player_number ? 'Du hast gewonnen! 🎉' : `Spieler ${game.winner} hat gewonnen.` }}
+            </template>
         </div>
     </div>
 </template>

@@ -25,16 +25,18 @@ watch(
 
 const { selectedCell, highlightedCells, isMyTurn, moveError, selectPiece, applyBroadcastedMove } = useCheckers(localGame);
 
-// WebSocket: listen for opponent moves on a public channel.
-useEchoPublic<MoveMadeEvent>(`game.${localGame.value.uuid}`, 'MoveMade', (event) => {
-    applyBroadcastedMove(event);
-});
+// WebSocket: only for online games.
+if (!props.game.is_local) {
+    useEchoPublic<MoveMadeEvent>(`game.${localGame.value.uuid}`, 'MoveMade', (event) => {
+        applyBroadcastedMove(event);
+    });
+}
 
-// Polling as async fallback (stops when game is finished).
+// Polling as async fallback (only for online games, stops when game is finished).
 const { stop: stopPolling } = usePoll(
     5000,
     { only: ['game'] },
-    { autoStart: localGame.value.status !== 'finished' },
+    { autoStart: !props.game.is_local && localGame.value.status !== 'finished' },
 );
 
 watch(
@@ -65,20 +67,20 @@ watch(
                 {{ moveError }}
             </div>
 
-            <!-- Waiting skeleton -->
+            <!-- Waiting skeleton (online only) -->
             <div
                 v-if="localGame.status === 'waiting' && localGame.player_number === 1"
                 class="w-full max-w-lg aspect-square animate-pulse rounded-lg bg-zinc-400"
             />
 
-            <!-- Board -->
+            <!-- Board (always shown in local mode; shown once active/finished in online mode) -->
             <CheckersBoard
                 v-else
                 :board-state="localGame.board_state"
                 :selected-cell="selectedCell"
                 :highlighted-cells="highlightedCells"
                 :is-my-turn="isMyTurn"
-                :player-number="localGame.player_number"
+                :player-number="localGame.is_local ? 1 : localGame.player_number"
                 @cell-click="selectPiece"
             />
         </div>

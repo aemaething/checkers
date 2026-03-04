@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\GameController::create
-* @see app/Http/Controllers/GameController.php:15
+* @see app/Http/Controllers/GameController.php:16
 * @route '/'
 */
 createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ create.form = createForm
 
 /**
 * @see \App\Http\Controllers\GameController::store
-* @see app/Http/Controllers/GameController.php:20
+* @see app/Http/Controllers/GameController.php:21
 * @route '/games'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +97,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\GameController::store
-* @see app/Http/Controllers/GameController.php:20
+* @see app/Http/Controllers/GameController.php:21
 * @route '/games'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\GameController::store
-* @see app/Http/Controllers/GameController.php:20
+* @see app/Http/Controllers/GameController.php:21
 * @route '/games'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -116,7 +116,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\GameController::store
-* @see app/Http/Controllers/GameController.php:20
+* @see app/Http/Controllers/GameController.php:21
 * @route '/games'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -126,7 +126,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\GameController::store
-* @see app/Http/Controllers/GameController.php:20
+* @see app/Http/Controllers/GameController.php:21
 * @route '/games'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -138,7 +138,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 export const show = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -153,7 +153,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 show.url = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -180,7 +180,7 @@ show.url = (args: { playerToken: string | number } | [playerToken: string | numb
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 show.get = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -190,7 +190,7 @@ show.get = (args: { playerToken: string | number } | [playerToken: string | numb
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 show.head = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -200,7 +200,7 @@ show.head = (args: { playerToken: string | number } | [playerToken: string | num
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 const showForm = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -210,7 +210,7 @@ const showForm = (args: { playerToken: string | number } | [playerToken: string 
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 showForm.get = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -220,7 +220,7 @@ showForm.get = (args: { playerToken: string | number } | [playerToken: string | 
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:34
+* @see app/Http/Controllers/GameController.php:38
 * @route '/game/{playerToken}'
 */
 showForm.head = (args: { playerToken: string | number } | [playerToken: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
