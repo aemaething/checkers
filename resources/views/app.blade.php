@@ -32,6 +32,13 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <meta name="description" content="Deutsches Damespiel online — spiele Dame gegen Freunde per Link oder lokal im Browser.">
+
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Dame — Deutsches Damespiel">
+        <meta property="og:description" content="Spiele Dame online gegen Freunde per Link oder lokal im gleichen Browser.">
+        <meta property="og:url" content="{{ url('/') }}">
+
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import { store as storeGame } from '@/actions/App/Http/Controllers/GameController';
 
 type Mode = 'online' | 'local';
@@ -15,6 +15,10 @@ function createGame(): void {
 </script>
 
 <template>
+    <Head>
+        <title>Dame — Deutsches Damespiel online</title>
+        <meta name="description" content="Spiele Deutsches Dame (Draughts) online gegen Freunde per Link oder lokal im Browser. Kostenlos, ohne Anmeldung.">
+    </Head>
     <div class="flex min-h-screen items-center justify-center bg-zinc-300">
         <div class="w-full max-w-md rounded-2xl bg-zinc-100 p-10 shadow-xl text-center space-y-8">
             <!-- Board decoration -->
